@@ -257,3 +257,23 @@ the repo's pre-commit hooks. The wider unit suite is `94 passed, 8
 xfailed` (those 8 cite other issues), alongside 14 collection errors
 from missing third-party packages (`jose`, `structlog`) that are
 identical on `main` and unrelated to this change.
+
+### Unit 4 verification update (2026-10-18)
+
+The implementation and documented Markdown deviation are unchanged. Fresh
+verification on commit `40792ff756daf1db338c787348febd6a0529db04` supersedes
+the earlier local-environment limitations reported above: after installing
+missing development dependencies into the existing virtual environment,
+`make test-unit` reports `381 passed, 48 xfailed, 4 warnings`, `make lint`
+passes, and `make typecheck` reports no issues in 76 source files. The issue
+repro changes from `[]` on main to `['Education', 'Skills']` on the branch;
+the unindented control is unchanged. The three named tests pass and the
+complete parser suite is `11 passed`.
+
+`make test-integration` collects zero tests and reports `no tests ran`
+(pytest exit 5, make exit 2), as expected for the empty integration directory.
+An additional current-Black format-check attempt refuses Python 3.12.5;
+that local attempt is not a pass. Existing CI run 37706529876 for this exact
+commit passes all five jobs, including its Black format check. Full fresh
+output is in the local `test_evidence.md`; draft claims are in `pr_draft.md`.
+The new regression exercises spaces, not a separate tab case or a real PDF.
