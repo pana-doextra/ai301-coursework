@@ -1,4 +1,4 @@
-# Contribution: [Issue Title]
+# Contribution: Add missing French translations for the radio info widget (EdgeTX #8002)
 
 Path: `beat-2-contribution/contribution-story.md`
 
@@ -8,10 +8,9 @@ format criteria grade exactly that. Your course repo link is the whole submissio
 files and no evidence uploads are part of Assignment 5.
 
 **Contribution Number:** [1]
-**Student:** [Student name]
-**GitHub Username:** [your GitHub username, exactly as it appears on your profile - no @, no
-profile URL. Your comments upstream are identified by this name.]
-**Issue:** [GitHub issue link]
+**Student:** Nhat Minh Thu Le
+**GitHub Username:** pana-doextra  <!-- TODO: confirm this is your profile name; it is the account `gh` is logged in as -->
+**Issue:** https://github.com/EdgeTX/edgetx/issues/8002
 **Pull Request:** [GitHub PR link, once opened]
 
 One repository, built across units 5 to 8, telling the whole story of your real
@@ -79,16 +78,36 @@ drafted, what you did with the draft.]
 
 ## Why I Chose This Issue
 
-[1-2 paragraphs in your own words: how you searched, what your scan
-surfaced, what your scout's verdict said, why this issue fits your
-profile, and what you hope to learn. If your scout's verdict on it
-was reject and you chose it anyway, say so here and say why; choosing
-against your own tool silently is what loses points. Close with an
-honest read of the tool itself: where the scout fell short on a real
-wild search and what you changed or would change, or what convinced
-you it held up. **Record the link to your claim comment in this section too.**
-Not claimed yet? Write `claim pending` and today's date where the link goes,
-and add the link the moment your claim lands.]
+<!-- TODO (yours to write): how you actually found this issue and which tool surfaced it. I only
+verified the facts below; I did not run the scout, so I have not invented a verdict. -->
+
+I chose [EdgeTX/edgetx#8002](https://github.com/EdgeTX/edgetx/issues/8002), "translation", a
+feature request opened on 2026-11-05 by Pat687426. It asks for five French strings that were
+left out of the French translation file: `TR_DATE_TIME_WIDGET` ("Date & Heure"),
+`TR_RADIO_INFO_WIDGET` ("Info Radio"), `TR_LOW_BATT_COLOR` ("Batterie faible"),
+`TR_MID_BATT_COLOR` ("Batterie moyenne") and `TR_HIGH_BATT_COLOR` ("Batterie chargée"). When
+I checked on 2026-11-11 the issue was open, had no assignee and no comments, and carried only
+the `enhancement ✨` label. It has no `good first issue` label, so the three label-based
+queries in my Unit 5 strategy would not have found it. That makes it a fair test of the scout
+on an issue it did not pick. The reporter gave the exact replacement text, so the change is
+small and the wording is already settled. The scope is five lines in one file, which fits a
+first contribution and leaves room to learn how EdgeTX organises translations (one
+`radio/src/translations/i18n/<lang>.h` per language, with the defines used by the colour-LCD
+widget in `radio/src/gui/colorlcd/widgets/radio_info.cpp`).
+
+The repo is active (last push 2026-11-11) and has a recent precedent for exactly this kind
+of fix. [PR #8001](https://github.com/EdgeTX/edgetx/pull/8001) by maintainer pfeerick,
+merged 2026-11-05, replaced the same five English placeholders in `es.h` with Spanish. Its
+description says FR, FI and NL still have English placeholders because nobody had posted
+translations for them. #8002 supplies the French ones. I hope to learn the EdgeTX
+translation workflow and the PR conventions (the `chore(color):` title style, backports to
+`2.12`), and how a maintainer treats a first-time contributor on a small change.
+
+- **Scout verdict:** [TODO: run `/issue-scout` on the issue URL and paste its verdict here. If it says reject and you proceed anyway, say so and why.]
+- **Claim comment:** claim pending 2026-11-11 <!-- replace with the link the moment the claim lands -->
+- **Honest read of the tool:** [TODO after the scout run. Starting point: the label-based
+  strategy would have missed this issue entirely, and at 6 days old with zero comments it is
+  also the kind of young, uncommented issue my Unit 5 notes say the ranking over-rewards.]
 
 **Toolkit**
 
@@ -104,26 +123,51 @@ and add the link the moment your claim lands.]
 
 **Problem Description**
 
-[In your own words, what is broken or missing?]
+Five user-visible strings for the radio info widget and its battery-level colour options
+were added to EdgeTX in PR #4845 with English placeholder text in the non-English
+translation files. Spanish has since been filled in (#8001). The French file `fr.h` still
+shows English for them, so a radio set to French displays "Date & Time", "Radio Info",
+"Low battery", "Mid battery" and "High battery" in the middle of an otherwise French UI.
 
 **Expected Behavior**
 
-[What should happen?]
+With the radio language set to French, those five labels appear in French, using the text
+the reporter proposed:
+
+| Define | Proposed French |
+|---|---|
+| `TR_DATE_TIME_WIDGET` | Date & Heure |
+| `TR_RADIO_INFO_WIDGET` | Info Radio |
+| `TR_LOW_BATT_COLOR` | Batterie faible |
+| `TR_MID_BATT_COLOR` | Batterie moyenne |
+| `TR_HIGH_BATT_COLOR` | Batterie chargée |
 
 **Current Behavior**
 
-[What actually happens?]
+`radio/src/translations/i18n/fr.h` on `main` (checked 2026-11-11, lines 1413-1417) holds
+the English text, identical to `en.h`:
+
+```c
+#define TR_DATE_TIME_WIDGET       "Date & Time"
+#define TR_RADIO_INFO_WIDGET      "Radio Info"
+#define TR_LOW_BATT_COLOR         "Low battery"
+#define TR_MID_BATT_COLOR         "Mid battery"
+#define TR_HIGH_BATT_COLOR        "High battery"
+```
 
 **Affected Components**
 
-[Which parts of the codebase are involved?]
+- `radio/src/translations/i18n/fr.h`: the five defines to change (the only file I expect to touch).
+- `radio/src/translations/i18n/en.h`: the source strings, unchanged, used as the reference.
+- `radio/src/gui/colorlcd/widgets/radio_info.cpp`: the colour-LCD widget that uses the defines, unchanged.
+- `radio/src/translations/sim_string_list.h`: also references the defines, unchanged.
 
 **Toolkit**
 
-- Tool:
-- What it produced:
-- Difficulties:
-- What changed:
+- Tool: [TODO: e.g. `gh issue view` / `gh api` to read the issue and the source at `main`]
+- What it produced: [the issue text, the five lines in `fr.h` vs `en.h`, and PR #8001 as precedent]
+- Difficulties: [none met, or what]
+- What changed: [nothing, or what]
 
 ---
 
@@ -136,11 +180,15 @@ the relevant versions (language, runtime, package manager, the project
 itself), and how you set the project up. Then the challenges you faced
 and how you solved them, or that none came up.]
 
+<!-- Note: this is a translation gap, so the lightest honest reproduction is reading fr.h against
+en.h. A stronger one is running the EdgeTX Companion/simulator with French selected and showing the
+English labels in the radio info widget settings. Say which one you actually did. -->
+
 **Steps to Reproduce**
 
-1. [Step 1]
-2. [Step 2]
-3. [Observed result]
+1. [Step 1, e.g. fork and clone EdgeTX/edgetx, check out `main`]
+2. [Step 2, e.g. open `radio/src/translations/i18n/fr.h` and search for `TR_DATE_TIME_WIDGET`, or run the simulator with the language set to French]
+3. [Observed result: the five labels are English]
 
 **Reproduction Evidence**
 
@@ -163,19 +211,41 @@ and how you solved them, or that none came up.]
 
 **Analysis**
 
-[Your analysis of the root cause: what is causing the issue, traced
-to the files and functions involved.]
+The root cause is a missing translation, not a code bug. PR #4845 added the widget and its
+five strings, and merged with the English text copied into every language file, as is
+EdgeTX's usual practice for strings a translator has not yet supplied. `es.h` was fixed in
+#8001. `fr.h` was not, because no French text had been posted; #8002 now provides it. All
+five defines already exist in `fr.h` (lines 1413-1417), so nothing needs adding and no
+other file has to change.
 
 **Proposed Solution**
 
-[High-level description of your fix approach, and what you are
-deliberately NOT changing.]
+Replace the five English values in `fr.h` with the French text from the issue and keep the
+existing `#define` name and column alignment. Save the file as UTF-8 like the rest of
+`fr.h`, since "chargée" has an accent and the file already uses accented characters
+throughout.
+
+Deliberately NOT changing:
+
+- The other languages. FI and NL still have the same English placeholders (per #8001) but
+  nobody has supplied text for them, and mixing languages would make the PR harder to review.
+- Other untranslated French strings that sit close by, for example `TR_DEL_DIR_NOT_EMPTY`
+  ("Directory must be empty before deletion") and the `TR_MIX_*_PREC` strings. They are not
+  in the issue.
+- `en.h`, the widget code, or the `TR_*` names.
+
+Open question for the maintainers: "Batterie chargée" for `TR_HIGH_BATT_COLOR` means
+"charged battery", while the English is "High battery" and the Spanish is "Batería llena".
+I plan to use the reporter's wording as given and mention this in the PR, rather than
+override a native speaker's choice.
 
 **Implementation Plan**
 
-1. [Modify file X to do Y]
-2. [Add or change Z]
-3. [Update tests]
+1. Comment on #8002 to claim it, and confirm the proposed wording with the reporter or a maintainer.
+2. Fork `EdgeTX/edgetx`, branch from `main`.
+3. Edit lines 1413-1417 of `radio/src/translations/i18n/fr.h` to the five French strings, keeping alignment and UTF-8 encoding.
+4. Build or run a translation check (see Testing Strategy) and confirm only `fr.h` changed in the diff.
+5. Open a PR titled in the project's style (for example `chore(color): add French 🇫🇷 translations for radio info widget`), following the shape of #8001 (before/after table, only `fr.h` changes, a line on the `2.12` backport).
 
 [Record deviations here as they happen: what changed mid-build and
 why. A recorded deviation is honest work; silent drift is not.]
@@ -196,6 +266,13 @@ against the built change (before and after), and the repo's own test
 suite or checks with the outcome shown. "Tests pass" with nothing
 observable named is not a strategy.]
 
+<!-- Draft checks to confirm or replace once you have run them:
+1. Before/after: `git diff` shows exactly five changed lines, all in fr.h.
+2. Before/after: grep the five defines in fr.h; before they equal en.h, after they match the table.
+3. The project's own translation build/check (look at radio/src/translations/translation.py and the
+   CI workflow) completes without errors for the French build.
+4. If a simulator is available: select French and screenshot the widget and its colour options. -->
+
 **Toolkit**
 
 - Tool:
@@ -210,9 +287,12 @@ observable named is not a strategy.]
 [A running log, added to as you work. Date each entry. What you
 built, decisions you made when you made them, wrong turns included.]
 
-**[Date]**
+**2026-11-11**
 
-[Entry]
+Picked #8002. Read the issue and confirmed it is open, unassigned and has no comments. Checked
+`fr.h`, `en.h` and `es.h` on `main`: the five French defines still hold the English text, and
+`es.h` already has Spanish from #8001. Read #8001 as the model for the PR shape. Claim comment
+not yet posted.
 
 **[Date]**
 
@@ -277,5 +357,6 @@ already shows you using: the doc you followed to set the environment
 up, the thread that explained the bug, the person who answered you.
 One real entry beats ten plausible ones.]
 
-- [Link to documentation that helped]
-- [Discussion, issue, or post that helped]
+- [EdgeTX issue #8002](https://github.com/EdgeTX/edgetx/issues/8002): the request and the proposed French text.
+- [EdgeTX PR #8001](https://github.com/EdgeTX/edgetx/pull/8001): the Spanish fix for the same five strings, used as the template for scope, PR title and description.
+- [EdgeTX PR #4845](https://github.com/EdgeTX/edgetx/pull/4845): the change that introduced the widget strings with English placeholders.
