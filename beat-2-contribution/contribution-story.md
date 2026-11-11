@@ -55,10 +55,9 @@ happened; these entries are the toolkit's own timeline.
 All four entries are graded. Keep every heading below, and fill each
 one in the week it belongs to.
 
-**Unit 5: [one line on the tool work]**
+**Unit 5: Built the issue-scout strategy and rubric, then patched both after live scans**
 
-[2-4 sentences: what you built (the scout, your strategy), what broke
-or fell short, what changed because of it.]
+I wrote a search strategy of three `good first issue` queries (C++, Python, JavaScript) that drops assigned and 90-day-stale issues and ranks by fewest comments, and ran the scout on the live scan; it accepted all five of its top candidates, which was misleading. tamadalab/welfare-time#117 passed `unclaimed` even though its body reserved the issue for a university course and said outside PRs would be closed, and `maintainer-responsive` was counting minutes-old issues the owner had opened, which show nothing about how maintainers treat outsiders. I patched `unclaimed` to fail on maintainer-stated reservations and changed the `maintainer-responsive` sampling to use non-maintainer issues at least 30 days old, and I logged the ranking bias in `scan-notes.md` without changing the strategy. A later scan rejected a stale repo on `maintainer-alive`, so the patched rubric held, but the same bias showed up again, because four of the five graded issues were under an hour old.
 
 **Unit 6: [one line on the tool work]**
 
